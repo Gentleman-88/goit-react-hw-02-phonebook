@@ -7,9 +7,11 @@ export class AddProfileForm extends Component {
 
 
         const name = event.currentTarget.elements.name.value;
+        const number = event.currentTarget.elements.number.value;
 
         const formData = {
             name,
+            number
         }
 
         this.props.handleAddContact(formData);
@@ -25,6 +27,14 @@ export class AddProfileForm extends Component {
                             className={css.formInput}
                             type="text"
                             name="name" 
+                            required />
+                </label>
+                <label className={css.formLabel}>
+                        <span className={css.formLabelText}>Number</span>
+                        <input
+                            className={css.formInput}
+                            type="tel"
+                            name="number" 
                             required />
                     </label>
                     <button className={css.formButton} type='submit'>Add contact</button>

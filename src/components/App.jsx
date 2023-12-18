@@ -1,16 +1,15 @@
 import { nanoid } from 'nanoid'
 import React, { Component } from 'react'
 import { AddProfileForm } from './AddProfileForm.jsx/AddProfileForm'
+import { ContactList } from './ContactList/ContactList'
+import { Filter } from './Filter/Filter'
 
 export class App extends Component {
   state = {
-  contacts: [
-    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-  ],
-  name: ''
+  contacts: [],
+    filter: '',
+    name: '',
+    number: '',
   }
 
   handleAddContact = (formData) => {
@@ -27,13 +26,35 @@ export class App extends Component {
       }
     })
   }
+
+  handleChangeFilter = (event) => {
+    const value = event.target.value
+    this.setState({filter: value})
+  }
+
+  handleDeleteContact = contactId => {
+    this.setState({contacts: this.state.contacts.filter(contact => contact.id !== contactId)})
+  }
   
   render() {
+
+    const filterdContacts = this.state.contacts.filter(contact => contact.name.includes(this.state.filter))
+
+
     return (
+
       <div>
         <AddProfileForm
           handleAddContact = {this.handleAddContact}
         />
+        <Filter
+          contacts={this.state.contacts}
+          filter={this.state.filter}
+          handleChangeFilter = {this.handleChangeFilter}
+        />
+        <ContactList
+          handleDeleteContact ={this.handleDeleteContact}
+          contacts={filterdContacts} />
       </div>
     )
   }
