@@ -15,6 +15,7 @@ export class AddProfileForm extends Component {
         }
 
         this.props.handleAddContact(formData);
+        event.currentTarget.reset()
     }
 
     render() {
