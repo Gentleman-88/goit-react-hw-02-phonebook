@@ -7,20 +7,20 @@ import { Filter } from './Filter/Filter'
 export class App extends Component {
   state = {
   contacts: [],
-    filter: '',
-    name: '',
-    number: '',
+  filter: '',
   }
 
   handleAddContact = (formData) => {
-    const hasDublicates = this.state.contacts.some(contact => contact.name === formData.name)
+    const hasDublicates = this.state.contacts.some(contact => contact.name.toLowerCase() === formData.name.toLowerCase())
     if (hasDublicates) {
       alert(`${formData.name} is already in contacts`)
       return
     }
-    const finalContact = { ...formData, id: nanoid() }
     
     this.setState((prevState) => {
+
+      const finalContact = { ...formData, id: nanoid() }
+
       return {
         contacts: [...prevState.contacts, finalContact]
       }
@@ -48,7 +48,6 @@ export class App extends Component {
           handleAddContact = {this.handleAddContact}
         />
         <Filter
-          contacts={this.state.contacts}
           filter={this.state.filter}
           handleChangeFilter = {this.handleChangeFilter}
         />
